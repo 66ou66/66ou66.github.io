@@ -19,7 +19,8 @@ export default defineConfig({
           text: '文章',
           items: [
             { text: '开博第一篇:为什么写博客', link: '/posts/hello-world.html' },
-            { text: '我是怎么搭建这个博客的', link: '/posts/build-this-blog.html' }
+            { text: '我是怎么搭建这个博客的', link: '/posts/build-this-blog.html' },
+            { text: '从 30.7% 到全自动对弈:象棋 AI 的 72 天', link: '/posts/chess-ai-evolution.html' }
           ]
         }
       ]
