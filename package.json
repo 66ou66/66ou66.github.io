@@ -1,0 +1,17 @@
+{
+  "name": "66ou66.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "deploy": "npm run build && gh-pages -d docs/.vitepress/dist -m \"deploy: update site\""
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
+  }
+}
