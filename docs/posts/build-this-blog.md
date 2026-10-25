@@ -71,14 +71,14 @@ package.json
 
 ```bash
 gh api -X PUT repos/66ou66/66ou66.github.io/pages --input - <<'EOF'
-{"source": {"branch": "gh-pages", "path": "/"}}
+{"build_type": "legacy", "source": {"branch": "gh-pages", "path": "/"}}
 EOF
 ```
 
 ## 踩的坑
 
 1. **OAuth token 缺 `workflow` scope 会拒推**。不是所有 `git push` 失败都是网络问题,看清 `remote rejected` 的具体文案,它一般把原因写得明明白白。
-2. **Pages 的"来源"必须和部署方式匹配**。GitHub Pages 支持两种发布方式:从分支读静态文件,或走 GitHub Actions。用 API 建站点时默认给了 workflow 模式,切成分支部署就要显式改回去,不然 `gh-pages` 分支推上去网站也是 404。
+2. **Pages 的"来源"必须和部署方式匹配**。GitHub Pages 支持两种发布方式:从分支读静态文件(`legacy`),或走 GitHub Actions(`workflow`)。用 API 建站点时默认给了 workflow 模式,切回分支部署必须把 `build_type` 和 `source` **一起改**——我第一遍只改了 `source`,`build_type` 还停在 workflow,Pages 就一直干等一个永远不会来的 Actions 部署,网站 404 了整整一分半钟,查配置才看出来。
 3. **`cleanUrls` 不能开**。VitePress 的 `cleanUrls` 选项可以把 URL 变成不带 `.html` 的形式,但它依赖服务器做 URL 重写,GitHub Pages 不做,开了之后搜索结果点进去就是 404。所以站内链接老老实实带 `.html`。
 4. **(留给以后)** 如果哪天切回 Actions 方案,记得工作流里 checkout 要加 `fetch-depth: 0`,否则浅克隆拿不到 git 历史,页面底部的"最后更新"时间算不出来。
 
